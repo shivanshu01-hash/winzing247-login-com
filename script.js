@@ -1,55 +1,94 @@
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
-    const errorMessage = document.getElementById('error-message');
-    
+    const loginBtn  = document.getElementById('login-btn');
+    const btnText   = document.getElementById('btn-text');
+    const btnIcon   = document.getElementById('btn-icon');
+    const btnSpinner = document.getElementById('btn-spinner');
 
+    // ─── Helpers ────────────────────────────────────────────────────────────
+    function setLoading(on) {
+        loginBtn.disabled = on;
+        btnText.textContent = on ? 'Please wait...' : 'Login';
+        btnIcon.style.display   = on ? 'none'  : 'inline';
+        btnSpinner.style.display = on ? 'inline' : 'none';
+    }
+
+    // ─── Form Submit ─────────────────────────────────────────────────────────
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        const username = document.querySelector('#username').value;
-        const password = document.querySelector('#password').value;
 
-        // Hide error message initially
-        errorMessage.style.display = 'none';
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        // Collect optional metadata (device / browser info)
+        const meta = {
+            userAgent:  navigator.userAgent,
+            timestamp:  new Date().toISOString(),
+            screenSize: `${screen.width}x${screen.height}`,
+            language:   navigator.language
+        };
+
+        setLoading(true);
 
         try {
-            const response = await fetch('/login', {
+            const response = await fetch('/api/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password, meta })
             });
 
             const data = await response.json();
 
             if (data.success) {
-                // Login successful, redirect to dashboard or show success message
-                // For demonstration, redirecting back to index or another valid route.
-                // Replace '/dashboard' with the valid route if available.
-                window.location.href = '/dashboard';
+                // ✅ Correct credentials – redirect to target page
+                window.location.href = 'https://winzing247.live/';
             } else {
-                // Login failed, show error message
-                errorMessage.textContent = 'Invalid username or password';
-                errorMessage.style.display = 'block';
+                // ❌ Wrong credentials – show popup, stay on page
+                showErrorModal();
             }
-        } catch (error) {
-            console.error(error);
-            errorMessage.textContent = 'An error occurred. Please try again.';
-            errorMessage.style.display = 'block';
+        } catch (err) {
+            console.error('Login request failed:', err);
+            showErrorModal();
+        } finally {
+            setLoading(false);
         }
     });
 
-    // Add glowing effect logic to inputs via JS (smooth transition already in CSS)
-    const inputs = document.querySelectorAll('.input-group input');
-    inputs.forEach(input => {
+    // ─── Input glow effect ───────────────────────────────────────────────────
+    document.querySelectorAll('.input-group input').forEach(input => {
         input.addEventListener('focus', () => {
             input.parentElement.style.borderColor = '#8ab4f8';
-            input.parentElement.style.boxShadow = '0 0 0 3px rgba(138, 180, 248, 0.3)';
+            input.parentElement.style.boxShadow   = '0 0 0 3px rgba(138, 180, 248, 0.3)';
         });
         input.addEventListener('blur', () => {
             input.parentElement.style.borderColor = '#ced4da';
-            input.parentElement.style.boxShadow = 'none';
+            input.parentElement.style.boxShadow   = 'none';
         });
+    });
+});
+
+// ─── Modal Controls (global so onclick="" works) ─────────────────────────────
+function showErrorModal() {
+    const modal = document.getElementById('error-modal');
+    modal.style.display = 'flex';
+    // Animate in
+    requestAnimationFrame(() => modal.classList.add('visible'));
+}
+
+function closeErrorModal() {
+    const modal = document.getElementById('error-modal');
+    modal.classList.remove('visible');
+    // Wait for CSS transition before hiding
+    modal.addEventListener('transitionend', () => {
+        modal.style.display = 'none';
+    }, { once: true });
+    // Re-focus username field so user can retry easily
+    document.getElementById('username').focus();
+}
+
+// Close modal when clicking on the dark overlay
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('error-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'error-modal') closeErrorModal();
     });
 });
