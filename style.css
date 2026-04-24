@@ -1,0 +1,400 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(180deg, #110e0b 0%, #4a3205 15%, #b27e0b 35%, #d09405 60%, #b27a05 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header & Logo */
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    width: 65px;
+    height: 65px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.winzing {
+    font-family: 'Oswald', sans-serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: #fbc012;
+    line-height: 0.9;
+    letter-spacing: 1px;
+}
+
+.exchange {
+    font-family: 'Oswald', sans-serif;
+    font-size: 21px;
+    font-weight: 500;
+    color: #fbc012;
+    letter-spacing: 5px;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+/* Main Content & Card */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 20px;
+}
+
+.login-card {
+    background: #ffffff;
+    width: 90%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 6px;
+    /* Soft white outer glow matching the image */
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.4), 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.login-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.login-title i {
+    font-size: 22px;
+}
+
+/* ─── Error Modal Popup ──────────────────────────────────────────── */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    backdrop-filter: blur(3px);
+}
+
+.modal-overlay.visible {
+    opacity: 1;
+}
+
+.modal-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 36px 32px 28px;
+    max-width: 360px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(-20px) scale(0.97);
+    transition: transform 0.25s ease;
+}
+
+.modal-overlay.visible .modal-box {
+    transform: translateY(0) scale(1);
+}
+
+.modal-icon {
+    width: 64px;
+    height: 64px;
+    background: #fff0f0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 16px;
+}
+
+.modal-icon i {
+    font-size: 32px;
+    color: #e53935;
+}
+
+.modal-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.modal-message {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #25D366;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    padding: 13px 32px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+    width: 100%;
+}
+
+.whatsapp-btn i {
+    font-size: 20px;
+}
+
+.whatsapp-btn:hover {
+    background: #1ebe5d;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+}
+
+.whatsapp-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+}
+
+/* Form Styles */
+.input-group {
+    display: flex;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.input-group:focus-within {
+    border-color: #8ab4f8;
+    box-shadow: 0 0 0 3px rgba(138, 180, 248, 0.3);
+}
+
+.input-group input {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    color: #495057;
+}
+
+.input-group input::placeholder {
+    color: #6c757d;
+}
+
+.input-group .icon {
+    background: #e9ecef;
+    border-left: 1px solid #ced4da;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    color: #212529;
+    font-size: 16px;
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    background: #1c1c1c;
+    color: #ffffff;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background: #333333;
+}
+
+.login-btn span {
+    width: 100%;
+    text-align: center;
+}
+
+.login-btn i {
+    position: absolute;
+    right: 15px;
+}
+
+/* Links */
+.forgot-password {
+    text-align: right;
+    margin-top: 8px;
+    margin-bottom: 15px;
+}
+
+.forgot-password a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.register-link {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.register-link span {
+    font-weight: 700;
+    color: #000;
+}
+
+.register-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Captcha Text */
+.captcha-notice {
+    text-align: center;
+    font-size: 11px;
+    color: #495057;
+    line-height: 1.5;
+    padding: 0 10px;
+}
+
+.captcha-notice a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.captcha-notice a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Section */
+.footer {
+    background: #1c1c1c;
+    padding: 20px 0 25px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.footer-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.footer-phone {
+    font-size: 15px;
+    color: #f1f1f1;
+    margin-bottom: 15px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    transition: transform 0.2s;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+.instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.telegram {
+    background: #0088cc;
+}
+
+.whatsapp {
+    background: #25D366;
+}
+
+/* Responsive constraints */
+@media (max-width: 480px) {
+    .winzing {
+        font-size: 38px;
+    }
+
+    .exchange {
+        font-size: 18px;
+        letter-spacing: 4px;
+    }
+
+    .logo-icon {
+        width: 55px;
+        height: 55px;
+    }
+
+    .login-card {
+        padding: 25px 20px;
+    }
+}

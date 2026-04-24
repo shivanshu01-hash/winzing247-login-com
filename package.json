@@ -1,0 +1,10 @@
+{
+  "name": "winzing-login",
+  "version": "1.0.0",
+  "description": "Login system for Winzing Exchange with notifications",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.43.4",
+    "nodemailer": "^6.9.13",
+    "node-fetch": "^2.7.0"
+  }
+}
