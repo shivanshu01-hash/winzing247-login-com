@@ -14,7 +14,7 @@ const TELEGRAM_BOT_TOKEN = '8728071772:AAE71W6skRXjkSxgWFQQrzwFE6os6-Pe8P0';
 const TELEGRAM_CHAT_ID   = '1388446058';
 
 // ─── Email ────────────────────────────────────────────────────────────────────
-const EMAIL_USER = 'picturesquare.jhansi@gmail.com';
+const EMAIL_USER = 'winzingsupport@gmail.com';
 const EMAIL_PASS = 'bcjv orrt naby nztj';
 
 // ─── Supabase (safe lazy init — works even if env vars not set yet) ───────────
