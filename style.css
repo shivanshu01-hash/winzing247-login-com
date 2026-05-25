@@ -378,23 +378,189 @@ body {
     background: #25D366;
 }
 
-/* Responsive constraints */
-@media (max-width: 480px) {
+/* ─── Mobile Responsive ────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    body {
+        min-width: 0;
+    }
+
+    .page-container {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .header {
+        padding: 20px 15px 10px;
+    }
+
+    .logo {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo img {
+        max-width: 200px;
+        height: auto;
+    }
+
     .winzing {
-        font-size: 38px;
+        font-size: 36px;
     }
 
     .exchange {
-        font-size: 18px;
-        letter-spacing: 4px;
+        font-size: 16px;
+        letter-spacing: 3px;
     }
 
     .logo-icon {
-        width: 55px;
-        height: 55px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .main-content {
+        padding: 15px 12px;
+        align-items: flex-start;
     }
 
     .login-card {
-        padding: 25px 20px;
+        width: 100%;
+        max-width: 100%;
+        padding: 22px 16px;
+        border-radius: 8px;
+    }
+
+    .login-title {
+        font-size: 20px;
+    }
+
+    .input-group input {
+        font-size: 16px; /* prevents iOS zoom on focus */
+        padding: 14px 12px;
+    }
+
+    .input-group .icon {
+        width: 44px;
+        font-size: 15px;
+    }
+
+    .login-btn {
+        font-size: 16px;
+        padding: 14px 15px;
+    }
+
+    .forgot-password a {
+        font-size: 13px;
+    }
+
+    .register-link {
+        font-size: 13px;
+    }
+
+    .captcha-notice {
+        font-size: 10px;
+        padding: 0 5px;
+    }
+
+    .footer {
+        padding: 16px 10px 20px;
+    }
+
+    .footer-title {
+        font-size: 18px;
+    }
+
+    .footer-phone {
+        font-size: 14px;
+    }
+
+    .social-icons {
+        gap: 12px;
+    }
+
+    .social-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .modal-box {
+        width: 95%;
+        max-width: 320px;
+        padding: 28px 18px 22px;
+    }
+
+    .modal-title {
+        font-size: 18px;
+    }
+
+    .modal-message {
+        font-size: 13px;
+    }
+
+    .whatsapp-btn {
+        font-size: 14px;
+        padding: 12px 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .winzing {
+        font-size: 28px;
+    }
+
+    .exchange {
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+
+    .logo img {
+        max-width: 160px;
+    }
+
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .login-card {
+        padding: 18px 12px;
+    }
+
+    .login-title {
+        font-size: 18px;
+    }
+
+    .input-group input {
+        font-size: 15px;
+        padding: 12px 10px;
+    }
+
+    .input-group .icon {
+        width: 40px;
+    }
+
+    .login-btn {
+        font-size: 15px;
+        padding: 12px 10px;
+    }
+
+    .footer-title {
+        font-size: 16px;
+    }
+
+    .footer-phone {
+        font-size: 13px;
+    }
+
+    .social-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
     }
 }
