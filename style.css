@@ -72,9 +72,9 @@ body {
 
 .login-card {
     background: #ffffff;
-    width: 90%;
-    max-width: 450px;
-    padding: 30px;
+    width: 85%;
+    max-width: 405px;
+    padding: 25px;
     border-radius: 6px;
     /* Soft white outer glow matching the image */
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.4), 0 10px 20px rgba(0, 0, 0, 0.2);
